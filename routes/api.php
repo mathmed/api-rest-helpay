@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ProductController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+  Product routes
+*/
+Route::prefix('products')->group(function (){
+    Route::get('/', [ProductController::class, 'list'])->name('products.list');
+    Route::get('{id}', [ProductController::class, 'show'])->name('products.show');
+    Route::post('/', [ProductController::class, 'store'])->name('products.store');
+    Route::delete('{id}', [ProductController::class, 'delete'])->name('products.delete');
 });
