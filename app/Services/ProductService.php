@@ -5,7 +5,8 @@ use App\Repositories\ProductRepository;
 
 class ProductService
 {
-    function __construct(){
+    function __construct()
+    {
         $this->productRepository = new ProductRepository();
     }
 
@@ -13,12 +14,8 @@ class ProductService
      * Rules for listing products
      * @return array
     */
-    function getProducts($productId = null){
-
-        /**
-         * Some logic ....
-        */
-        
+    function getProducts($productId = null)
+    {
         if(!$productId)
             $response = $this->productRepository->list();
         else
@@ -28,6 +25,15 @@ class ProductService
             $response = ["data" => "Nenhum produto encontrado", "status" => 400];
 
         return $response;
+    }
+
+    /**
+     * Rules for insert products
+     * @return array
+    */
+    function insertProduct($requestData)
+    {
+        return $this->productRepository->store($requestData);
     }
     
 }
