@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->double('amount');
             $table->integer('qty_stock');
+            $table->softDeletes();
         });
     }
 

@@ -11,7 +11,7 @@ class ProductService
     }
 
     /**
-     * Rules for listing products
+     * Logic for listing products
      * @return array
     */
     function getProducts($productId = null)
@@ -28,12 +28,22 @@ class ProductService
     }
 
     /**
-     * Rules for insert products
+     * Logic for insert products
      * @return array
     */
-    function insertProduct($requestData)
+    function insertProduct($productData)
     {
-        return $this->productRepository->store($requestData);
+        return $this->productRepository->store($productData);
+    }
+
+
+    /**
+     * Logic for delete products
+     * @return array
+    */
+    function deleteProduct($productId)
+    {
+        return $this->productRepository->delete($productId);
     }
     
 }

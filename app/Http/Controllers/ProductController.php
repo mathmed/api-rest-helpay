@@ -25,7 +25,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created product in storage.
      * @param  \Http\Requests\ProductRequest $request
      * @return \Illuminate\Http\Response
      */
@@ -36,13 +36,13 @@ class ProductController extends Controller
     }   
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * Remove the specified product from the storage.
+     * @param  int  $productId
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete($productId)
     {
-        //
+        $responseResult = $this->productService->deleteProduct($productId);
+        return ResponseMaker::create($responseResult);
     }
 }
