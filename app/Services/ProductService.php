@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Repositories\ProductRepository;
+use App\Services\PurchaseService;
 
 class ProductService
 {
@@ -16,15 +17,35 @@ class ProductService
     */
     function getProducts($productId = null)
     {
+        /* List all products */
         if(!$productId)
-            $response = $this->productRepository->list();
-        else
-            $response = $this->productRepository->show($productId);
+            return $this->productRepository->list();
 
-        if($response["data"] == null)
-            $response = ["data" => "Nenhum produto encontrado", "status" => 400];
+        /* Shows a specific product */
+        else{
 
-        return $response;
+            $productInfo = $this->productRepository->show($productId);
+            
+            if(!$productInfo["data"])
+                return ["data" => "Nenhum produto encontrado", "status" => 400];
+
+            $purchaseService = new PurchaseService();
+            $lastPurchaseInfo = $purchaseService->getLastPurchase($productId);
+            
+            /**
+             * Add 2 new attibutes to product 
+             * last_sale_date -> date the product was last sold
+             * last_sale_total_price -> total value ($) of the last sale of the product
+            */
+            
+            $productInfo["data"]->last_sale_date = isset($lastPurchaseInfo["data"]->updated_at)
+                ? $lastPurchaseInfo["data"]->updated_at : null;
+            
+            $productInfo["data"]->last_sale_total_price = isset($lastPurchaseInfo["data"]->updated_at)
+                ? $lastPurchaseInfo["data"]->quantity_purchased * $productInfo["data"]->amount: null;
+            
+            return $productInfo;
+        }
     }
 
     /**

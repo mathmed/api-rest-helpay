@@ -39,6 +39,16 @@ class PurchaseService
     }
 
     /**
+     * Logic to get the last purchase of a product
+     * @param integer $productId
+     * @return array
+    */
+    function getLastPurchase($productId)
+    {
+        return $this->purchaseRepository->show($productId);
+    }
+
+    /**
      * Simple regex-based credit card validation
      * @param array $creditCard
      * @return boolean

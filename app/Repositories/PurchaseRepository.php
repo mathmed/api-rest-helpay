@@ -31,4 +31,23 @@ class PurchaseRepository
             return ['data' => $error->getMessage(), 'status' => 500];
         }
     }
+
+    /**
+     * Get a specific purchase from the db
+     * @param integer $productId
+     * @return array
+    */
+    public function show($productId)
+    {
+        try {
+            $purchase = Purchase::where('product_id', $productId)
+                ->orderBy('updated_at', 'desc')
+                    ->get()
+                        ->first();
+            return ['data' => $purchase, 'status' => 200];
+        } catch (\Exception $error) {
+            return ['data' => $error->getMessage(), 'status' => 500];
+        }  
+    }
+
 }
