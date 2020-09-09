@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Repositories\PurchaseRepository;
 use App\Repositories\ProductRepository;
+use App\Services\XMLMakerService;
 
 class PurchaseService
 {
@@ -20,6 +21,8 @@ class PurchaseService
     {
         if($this->simpleValidateCreditCard($purchaseData["card"])){
             if($this->validadeStockForPurchase($purchaseData["product_id"], $purchaseData["quantity_purchased"])){
+                
+                dd(XMLMakerService::create($purchaseData));
                 return $this->purchaseRepository->store($purchaseData);
             }
 
