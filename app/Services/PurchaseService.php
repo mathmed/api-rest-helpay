@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Repositories\PurchaseRepository;
 use App\Repositories\ProductRepository;
 use App\Services\XMLMakerService;
+use App\Services\GoogleDriveService;
 
 class PurchaseService
 {
@@ -20,10 +21,20 @@ class PurchaseService
     function newPurchase($purchaseData)
     {
         if($this->simpleValidateCreditCard($purchaseData["card"])){
+            
             if($this->validadeStockForPurchase($purchaseData["product_id"], $purchaseData["quantity_purchased"])){
                 
-                dd(XMLMakerService::create($purchaseData));
-                return $this->purchaseRepository->store($purchaseData);
+                $xml = XMLMakerService::create($purchaseData);
+
+                $googleDriveService = new GoogleDriveService();
+
+                $googleDriveResponse = $googleDriveService->uploadXmlFile($xml);
+
+                if($googleDriveResponse["status"] === 200){
+                    return $this->purchaseRepository->store($purchaseData);
+                }
+
+                else return $googleDriveResponse;
             }
 
             else {
@@ -73,11 +84,8 @@ class PurchaseService
         if(isset($regexCreditCards[$cardFlag])){
 
             $cardValidate = $regexCreditCards[$cardFlag];
+            return preg_match($cardValidate['valid'], $cardNumber);
 
-            if (preg_match($cardValidate['valid'], $cardNumber))
-                return true;
-
-            return false;
         }
 
         return false;
@@ -93,6 +101,11 @@ class PurchaseService
     private function validadeStockForPurchase($productId, $qtyPurchased)
     {
         $productRepository = new ProductRepository();
-        return $productRepository->show($productId)["data"]->fresh()->qty_stock >= $qtyPurchased;
+        $product = $productRepository->show($productId)["data"];
+
+        if($product)
+            return $product->fresh()->qty_stock >= $qtyPurchased;
+            
+        return false;
     }
 }

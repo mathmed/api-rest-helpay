@@ -4,7 +4,7 @@ namespace App\Services;
 use Google_Client;
 use Google_Service_Drive;
 use Google_Service_Drive_DriveFile;
-
+use Illuminate\Support\Facades\Request;
 
 class GoogleDriveService
 {
@@ -23,8 +23,10 @@ class GoogleDriveService
      * @param integer $authCode
      * @return array
     */
-    function config($authenticationCode)
+    function config()
     {
+        $authenticationCode = Request::get('code');
+
         try {
             if ($this->googleClient->isAccessTokenExpired()) {
 
@@ -61,7 +63,42 @@ class GoogleDriveService
             return ['data' => ['authenticated' => true], 'status' => 200];
 
         } catch (\Exception $error) {
-            return ['data' => ['error_mesage' => $error->getMessage(), 'authenticated' => false], 'status' => 500];
+            return ['data' => $error->getMessage(), 'status' => 500];
         }
+    }
+
+    function uploadXmlFile($xml)
+    {
+        $authenticatedResponse = $this->config();
+        
+        if(isset($authenticatedResponse['data']['authenticated']) && $authenticatedResponse['data']['authenticated']) {
+           
+            try {
+                
+                $serviceDrive = new Google_Service_Drive($this->googleClient);
+                
+                $file = new Google_Service_Drive_DriveFile();
+                
+                $file->setName(uniqid().'.xml');
+                $file->setMimeType('text/xml');
+        
+                $createdFile = $serviceDrive->files->create($file, [
+                    'data' => $xml->asXML(),
+                    'uploadType' => 'multipart'
+                ]);
+        
+                if ($createdFile->getId()) {
+                    return ['data' => $createdFile->getId(), 'status' => 200];
+                }
+                else {
+                    return ['data' => 'Erro ao fazer upload do arquivo', 'status' => 500];
+                }
+        
+            } catch (\Exception $error) {
+                return ['data' => $error->getMessage(), 'status' => 500];
+            }
+        }
+        
+        else return $authenticatedResponse;
     }
 }

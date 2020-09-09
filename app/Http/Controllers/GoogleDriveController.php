@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Services\GoogleDriveService;
-use Illuminate\Http\Request;
 use App\Http\Responses\ResponseMaker;
-
 
 class GoogleDriveController extends Controller
 {
@@ -15,12 +13,11 @@ class GoogleDriveController extends Controller
 
     /**
      * Receives feedback from google authentication
-     * @param Illuminate\Http\Request
      * @return \Illuminate\Http\Response
     */
-    public function callback(Request $request)
+    public function callback()
     {
-        $responseResult =  $this->googleDriveService->config($request->get('code'));
+        $responseResult = $this->googleDriveService->config();
         return ResponseMaker::create($responseResult);
     }
 }
