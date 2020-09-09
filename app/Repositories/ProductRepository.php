@@ -34,7 +34,7 @@ class ProductRepository
     }
 
     /**
-     * Get a specific product from the db
+     * Save a product to the db
      * @param array $product
      * @return array
     */
