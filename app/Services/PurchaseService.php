@@ -5,6 +5,8 @@ use App\Repositories\PurchaseRepository;
 use App\Repositories\ProductRepository;
 use App\Services\XMLMakerService;
 use App\Services\GoogleDriveService;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailPurchase;
 
 class PurchaseService
 {
@@ -24,14 +26,20 @@ class PurchaseService
             
             if($this->validadeStockForPurchase($purchaseData["product_id"], $purchaseData["quantity_purchased"])){
                 
+                /* Create a XML */
                 $xml = XMLMakerService::create($purchaseData);
-
+            
+                /* Upload a XML */
                 $googleDriveService = new GoogleDriveService();
-
                 $googleDriveResponse = $googleDriveService->uploadXmlFile($xml);
 
                 if($googleDriveResponse["status"] === 200){
+
+                    Mail::to(env('MAIL_TO'))->send(new SendMailPurchase($googleDriveResponse["data"]));
+                    
+                    /* Finally, update databases */
                     return $this->purchaseRepository->store($purchaseData);
+
                 }
 
                 else return $googleDriveResponse;

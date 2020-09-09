@@ -81,15 +81,21 @@ class GoogleDriveService
                 
                 $file->setName(uniqid().'.xml');
                 $file->setMimeType('text/xml');
-        
+                
+                /* Create and upload the xml */
                 $createdFile = $serviceDrive->files->create($file, [
                     'data' => $xml->asXML(),
                     'uploadType' => 'multipart'
                 ]);
         
                 if ($createdFile->getId()) {
-                    return ['data' => $createdFile->getId(), 'status' => 200];
+
+                    /* Get uploaded xml url */
+                    $urlXml = $serviceDrive->files->get($createdFile->getId(), array( "fields" => "webContentLink" ) );
+                    
+                    return ['data' => $urlXml->webContentLink, 'status' => 200];
                 }
+                
                 else {
                     return ['data' => 'Erro ao fazer upload do arquivo', 'status' => 500];
                 }
