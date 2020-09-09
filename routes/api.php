@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 
 
 /*
@@ -26,3 +27,8 @@ Route::prefix('products')->group(function (){
     Route::post('/', [ProductController::class, 'store'])->name('products.store');
     Route::delete('{id}', [ProductController::class, 'delete'])->name('products.delete');
 });
+
+/*
+  Purchase routes
+*/
+Route::post('purchase', [PurchaseController::class, 'store'])->name('purchase.store');
