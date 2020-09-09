@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\GoogleDriveController;
 
 
 /*
@@ -32,3 +33,9 @@ Route::prefix('products')->group(function (){
   Purchase routes
 */
 Route::post('purchase', [PurchaseController::class, 'store'])->name('purchase.store');
+
+/*
+  Google routes
+*/
+Route::get('/google/callback', [GoogleDriveController::class, 'callback']);
+ 

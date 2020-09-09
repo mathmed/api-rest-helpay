@@ -2,21 +2,16 @@
 
 namespace App\Http\Responses;
 
-use Illuminate\Http\Response;
-
 class ResponseMaker
 {
     /**
      * Create and send a response
      * @return \Illuminate\Http\Response
     */
-    public static function create($data){
-        return (
-            new Response(
-                [
-                    'data' => $data['data'],
-                    'status' => $data['status']
-                ], $data['status']))
-        ->header('Content-Type', 'application/json');
+    public static function create($responseData){
+
+        return response()
+            ->json($responseData, $responseData['status'], [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+                ->header('Content-Type', 'application/json');
     }
 }
