@@ -54,13 +54,14 @@ class GoogleDriveService
                 if (!file_exists(dirname($userCredentialsFile))) {
                     mkdir(dirname($userCredentialsFile), 755, true);
                 }
+                
                 file_put_contents($userCredentialsFile, json_encode($this->googleClient->getAccessToken()));
             }
 
             return ['data' => ['authenticated' => true], 'status' => 200];
 
         } catch (\Exception $error) {
-            return ['data' => $error->getMessage(), 'status' => 500];
+            return ['data' => ['error_mesage' => $error->getMessage(), 'authenticated' => false], 'status' => 500];
         }
     }
 }
