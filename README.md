@@ -80,7 +80,7 @@ Este arquivo executará os comandos de **migration** e **seed** do Laravel, dent
 Para garantir que a comunidade Laravel seja bem-vinda a todos, por favor, reveja e cumpra o [Código de Conduta](https://laravel.com/docs/contributions#code-of-conduct).
 
 ## Rotas
-https://documenter.getpostman.com/view/6373288/TVCmT693
+
 ```
 +--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
 | Domain | Method   | URI                 | Name            | Action                                              | Middleware |
