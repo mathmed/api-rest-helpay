@@ -75,11 +75,9 @@ $ ./create_db.sh
 Este arquivo executará os comandos de **migration** e **seed** do Laravel, dentro do container. 
 **_obs: é recomendado esperar cerca de 1 à 2 min para executar este comando após o início do Docker, isto porque o Docker geralmente demora alguns minutos para configurar tudo._**
 
-## Código de Conduta
-
-Para garantir que a comunidade Laravel seja bem-vinda a todos, por favor, reveja e cumpra o [Código de Conduta](https://laravel.com/docs/contributions#code-of-conduct).
-
 ## Rotas
+
+A documentação das rotas está disponível no <a href="https://documenter.getpostman.com/view/6373288/TVCmT693">Postman</a>.
 
 ```
 +--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
@@ -95,7 +93,10 @@ Para garantir que a comunidade Laravel seja bem-vinda a todos, por favor, reveja
 +--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
 ```
 
-A documentação das rotas está disponível no <a href="https://documenter.getpostman.com/view/6373288/TVCmT693">Postman</a>.
+## Código de Conduta
+
+Para garantir que a comunidade Laravel seja bem-vinda a todos, por favor, reveja e cumpra o [Código de Conduta](https://laravel.com/docs/contributions#code-of-conduct).
+
 
 ## Vulnerabilidades de Segurança
 
