@@ -7,55 +7,78 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## API Rest Helpay
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Esta API desenvolvida utilizando o framework Laravel faz um gerenciamento simples de estoque e vendas, possuindo integração com o Google Drive.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Dependências
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   docker
+-   docker-compose
+-   composer
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Configuração
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Com todas as dependências instaladas, primeiramente é necessário realizar um clone deste repositório:
 
-## Laravel Sponsors
+```console
+$ git clone https://github.com/mathmed/api-rest-helpay.git
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Após isso, na pasta do projeto, utilize o comando:
 
-### Premium Partners
+```console
+$ composer install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+#### .env
 
-## Contributing
+Com o projeto clonado e instalado, configure as variáveis do sistema, para isso, renomeie o arquivo `.env.example` para `.env`. Feito isso, no arquivo `.env` você deve adicionar suas configurações de integração com email e Google Drive, para isso, altere o trexo a seguir:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```html
+MAIL_MAILER=smtp MAIL_HOST=smtp.gmail.com MAIL_PORT=587 MAIL_ENCRYPTION=tls
+MAIL_FROM_NAME='API Helpay' MAIL_TO=YOUR_RECEIVER_EMAIL
+MAIL_FROM_ADDRESS=YOUR_SENDER_EMAIL MAIL_USERNAME=YOUR_SENDER_EMAIL
+MAIL_PASSWORD=YOUR_SENDER_EMAIL_PASSWORD GOOGLE_APP_ID=YOUR_GOOGLE_APP_ID
+GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET_KEY
+GOOGLE_REDIRECT='http://localhost:8000/api/google/callback'
+```
 
-## Code of Conduct
+Para maior facilidade, mantenha as configurações de host do email e utilize e-mails do **Gmail** para envio e recebimento.
+Para as configurações do Google, é necessário criar um projeto com acesso à API do drive e obter as credenciais. Caso esse passo seja complicado, posso fornecer minhas credenciais que já estão criadas.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Docker
 
-## Security Vulnerabilities
+Após configurar as variáveis de sistema, é necessário iniciar os containers Docker. Para isso, primeiramente execute dentro da pasta do projeto o comando:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```console
+$ docker-compose build && docker-compose up -d
+```
 
-## License
+Este comando irá criar os todos os containers e iniciá-los.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Database
+
+Na primeira vez que iniciar os containers Docker, utilize o comando abaixo para criar e popular o banco de dados.
+
+```console
+$ ./create_db.sh
+```
+
+Este arquivo executará os comandos de **migration** e **seed** do Laravel, dentro do container.
+**_OBS: É recomendado esperar cerca de 1 à 2min para executar este comando após o início do Docker, isto porque o Docker geralmente demora alguns minutos para configurar tudo._**
+
+## Código de Conduta
+
+Para garantir que a comunidade Laravel seja bem-vinda a todos, por favor, reveja e cumpra o [Código de Conduta](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Vulnerabilidades de segurança
+
+Se você descobrir uma vulnerabilidade de segurança no Laravel, envie um e-mail para Taylor Otwell via [mailto:taylor@laravel.com]. Todas as vulnerabilidades de segurança serão resolvidas imediatamente.
+
+## Licensa
+
+O framework Laravel é um software de código aberto licenciado sob a [Licensa MIT](https://opensource.org/licenses/MIT).
