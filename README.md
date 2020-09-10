@@ -73,11 +73,29 @@ $ ./create_db.sh
 ```
 
 Este arquivo executará os comandos de **migration** e **seed** do Laravel, dentro do container. 
-**_obs: é recomendado esperar cerca de 1 à 2min para executar este comando após o início do Docker, isto porque o Docker geralmente demora alguns minutos para configurar tudo._**
+**_obs: é recomendado esperar cerca de 1 à 2 min para executar este comando após o início do Docker, isto porque o Docker geralmente demora alguns minutos para configurar tudo._**
 
 ## Código de Conduta
 
 Para garantir que a comunidade Laravel seja bem-vinda a todos, por favor, reveja e cumpra o [Código de Conduta](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Rotas
+https://documenter.getpostman.com/view/6373288/TVCmT693
+```
++--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
+| Domain | Method   | URI                 | Name            | Action                                              | Middleware |
++--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
+|        | GET|HEAD | /                   |                 | Closure                                             | web        |
+|        | GET|HEAD | api/google/callback |                 | App\Http\Controllers\GoogleDriveController@callback | api        |
+|        | GET|HEAD | api/products        | products.list   | App\Http\Controllers\ProductController@list         | api        |
+|        | POST     | api/products        | products.store  | App\Http\Controllers\ProductController@store        | api        |
+|        | GET|HEAD | api/products/{id}   | products.list   | App\Http\Controllers\ProductController@list         | api        |
+|        | DELETE   | api/products/{id}   | products.delete | App\Http\Controllers\ProductController@delete       | api        |
+|        | POST     | api/purchase        | purchase.store  | App\Http\Controllers\PurchaseController@store       | api        |
++--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
+```
+
+A documentação das rotas está disponível no <a href="https://documenter.getpostman.com/view/6373288/TVCmT693">Postman</a>.
 
 ## Vulnerabilidades de Segurança
 
