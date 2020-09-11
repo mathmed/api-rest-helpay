@@ -15,12 +15,22 @@ class ProductController extends Controller
 
     /**
      * Display a listing of products.
+     * @return \Illuminate\Http\Response
+    */
+    public function list()
+    {
+        $responseResult = $this->productService->getProducts();
+        return ResponseMaker::create($responseResult);
+    }
+
+    /**
+     * Shows a specific product
      * @param integer $productId
      * @return \Illuminate\Http\Response
     */
-    public function list($productId = null)
+    public function show($productId)
     {
-        $responseResult = $this->productService->getProducts($productId);
+        $responseResult = $this->productService->getProductById($productId);
         return ResponseMaker::create($responseResult);
     }
 

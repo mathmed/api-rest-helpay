@@ -24,7 +24,7 @@ use App\Http\Controllers\GoogleDriveController;
 */
 Route::prefix('products')->group(function (){
     Route::get('/', [ProductController::class, 'list'])->name('products.list');
-    Route::get('/{id}', [ProductController::class, 'list'])->name('products.list');
+    Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
     Route::post('/', [ProductController::class, 'store'])->name('products.store');
     Route::delete('{id}', [ProductController::class, 'delete'])->name('products.delete');
 });
