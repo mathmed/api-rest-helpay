@@ -92,7 +92,7 @@ A documentação das rotas das API e seus endpoints estão disponíveis no <a hr
 |        | GET|HEAD | api/google/callback |                 | App\Http\Controllers\GoogleDriveController@callback | api        |
 |        | GET|HEAD | api/products        | products.list   | App\Http\Controllers\ProductController@list         | api        |
 |        | POST     | api/products        | products.store  | App\Http\Controllers\ProductController@store        | api        |
-|        | GET|HEAD | api/products/{id}   | products.list   | App\Http\Controllers\ProductController@list         | api        |
+|        | GET|HEAD | api/products/{id}   | products.show   | App\Http\Controllers\ProductController@show         | api        |
 |        | DELETE   | api/products/{id}   | products.delete | App\Http\Controllers\ProductController@delete       | api        |
 |        | POST     | api/purchase        | purchase.store  | App\Http\Controllers\PurchaseController@store       | api        |
 +--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
