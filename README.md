@@ -26,7 +26,7 @@ Com todas as dependências instaladas, primeiramente é necessário realizar um 
 $ git clone https://github.com/mathmed/api-rest-helpay.git
 ```
 
-Após isso, na pasta do projeto, utilize o comando:
+Após isso, na pasta do projeto, utilize o comando a seguir na raiz do projeto para instalar todas as dependências do Laravel.
 
 ```console
 $ composer install
@@ -37,8 +37,10 @@ $ composer install
 Com o projeto clonado e instalado, configure as variáveis do sistema, para isso, renomeie o arquivo `.env.example` para `.env`. Feito isso, no arquivo `.env` você deve adicionar suas configurações de integração com email e Google Drive, para isso, altere o trexo a seguir:
 
 ```html
-MAIL_MAILER=smtp MAIL_HOST=smtp.gmail.com 
-MAIL_PORT=587 MAIL_ENCRYPTION=tls   
+MAIL_MAILER=smtp  
+MAIL_HOST=smtp.gmail.com 
+MAIL_PORT=587  
+MAIL_ENCRYPTION=tls   
 MAIL_FROM_NAME='API Helpay' 
 MAIL_TO=YOUR_RECEIVER_EMAIL  
 MAIL_FROM_ADDRESS=YOUR_SENDER_EMAIL 
@@ -56,28 +58,30 @@ Para as configurações do Google, é necessário criar um projeto com acesso à
 
 ### Docker
 
-Após configurar as variáveis de sistema, é necessário iniciar os containers Docker. Para isso, primeiramente execute dentro da pasta do projeto o comando:
+Após configurar as variáveis de sistema, é necessário construir e iniciar os containers *_Docker_*. Para isso, execute dentro da pasta raiz do projeto o comando:
 
 ```console
 $ docker-compose build && docker-compose up -d
 ```
 
-Este comando irá criar os todos os containers e iniciá-los.
+Este comando irá criar os todos os containers e iniciá-los, pode ser que demore alguns minutos para ser finalizado. 
+Caso tenha problemas de permissões, execute os comandos com **sudo**.
 
 ### Database
 
-Na primeira vez que iniciar os containers Docker, utilize o comando abaixo para criar e popular o banco de dados.
+Somente na primeira vez que iniciar os containers Docker, utilize o comando abaixo para criar e popular o banco de dados da API.
 
 ```console
 $ ./create_db.sh
 ```
 
-Este arquivo executará os comandos de **migration** e **seed** do Laravel, dentro do container. 
+Este arquivo executará os comandos de **migration** e **seed** do Laravel, dentro do container.  
+
 **_obs: é recomendado esperar cerca de 1 à 2 min para executar este comando após o início do Docker, isto porque o Docker geralmente demora alguns minutos para configurar tudo._**
 
 ## Rotas
 
-A documentação das rotas está disponível no <a href="https://documenter.getpostman.com/view/6373288/TVCmT693">Postman</a>.
+A documentação das rotas das API e seus endpoints estão disponíveis no <a href="https://documenter.getpostman.com/view/6373288/TVCmT693">Postman</a>.
 
 ```
 +--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
