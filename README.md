@@ -12,7 +12,7 @@
 Esta API desenvolvida utilizando o framework Laravel faz um gerenciamento simples de estoque e vendas, possuindo integração com o Google Drive.
 
 #### Dependências
-
+-   php >= 7.3
 -   docker
 -   docker-compose
 -   composer
@@ -96,6 +96,14 @@ A documentação das rotas das API e seus endpoints estão disponíveis no <a hr
 |        | DELETE   | api/products/{id}   | products.delete | App\Http\Controllers\ProductController@delete       | api        |
 |        | POST     | api/purchase        | purchase.store  | App\Http\Controllers\PurchaseController@store       | api        |
 +--------+----------+---------------------+-----------------+-----------------------------------------------------+------------+
+```
+
+## Testes
+
+Para rodar os testes da API, na raiz do projeto execute o comando:
+
+```console
+$ php artisan test
 ```
 
 ## Código de Conduta
